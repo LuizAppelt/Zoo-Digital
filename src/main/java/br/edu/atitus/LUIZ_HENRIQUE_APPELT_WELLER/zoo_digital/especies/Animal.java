@@ -23,7 +23,7 @@ public abstract class Animal {
     // Método abstrato que os animais deverão sobrescrever
     public abstract void comer();
 
-    // Sobrecarga do método comer() declarada como final
+    // Sobrecarga do método comer() final
     // nenhuma classe filha poderá alterar esse metodo
     public final void comer(String alimento) {
         System.out.println(this.nome + " se alimenta de " + alimento + ".");
