@@ -1,11 +1,16 @@
 package br.edu.atitus.LUIZ_HENRIQUE_APPELT_WELLER.zoo_digital.especies;
 
-public abstract class Animal {
+import java.io.Serializable;
 
-    // contar o total de animais instanciados
+// 1. Adicionamos a implementação de Serializable
+public abstract class Animal implements Serializable {
+
+    // Identificador de versão para a serialização
+    private static final long serialVersionUID = 1L;
+
+    // O contador static não é salvo automaticamente, trataremos ele na inicialização
     private static int contador = 0;
 
-    // Atributos básicos e privados
     private String nome;
     private int idade;
     private String especie;
@@ -14,49 +19,37 @@ public abstract class Animal {
         this.nome = nome;
         this.idade = idade;
         this.especie = especie;
-        contador++; // Toda vez que um Animal for instanciado, o contador sobe 1
+        contador++; // Aumenta ao criar
     }
 
-    // Método abstrato que todas as filhas deverão implementar
     public abstract void emitirSom();
-
-    // Método abstrato que os animais deverão sobrescrever
     public abstract void comer();
 
-    // Sobrecarga do método comer() final
-    // nenhuma classe filha poderá alterar esse metodo
     public final void comer(String alimento) {
-        System.out.println(this.nome + " se alimenta de " + alimento + ".");
+        System.out.println(this.nome + " está se alimentando de " + alimento + ".");
     }
 
-    // get e setters
+    // --- Getters e Setters ---
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public int getIdade() { return idade; }
+    public void setIdade(int idade) { this.idade = idade; }
+    public String getEspecie() { return especie; }
+    public void setEspecie(String especie) { this.especie = especie; }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public String getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
-
-    // Método static para acessar o contador de fora da classe
     public static int getContador() {
         return contador;
+    }
+
+    // Usado para restaurar o contador ao abrir o aplicativo
+    public static void setContador(int valor) {
+        contador = valor;
+    }
+
+    // Usado para diminuir o total de animais na opção de Remover
+    public static void decrementarContador() {
+        if (contador > 0) {
+            contador--;
+        }
     }
 }
